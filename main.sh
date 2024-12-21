@@ -18,5 +18,5 @@ for file in /$basedir/modules/*.sh ; do
     source $file
 done
 while true ; do
-    main_menu
+    main_menu || read -n 1
 done
