@@ -10,4 +10,7 @@ mkdir -p /run/dbus/
 dbus-daemon --system &
 # run Network Manager
 NetworkManager
+# run dropbear
+dropbear -R -E
+echo -ne "\033c"
 exec /bin/sh
