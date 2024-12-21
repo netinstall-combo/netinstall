@@ -25,6 +25,7 @@ main_menu(){
         ;;
       5)
         disk_menu
+        ;;
       0)
         reboot -f
         ;;
