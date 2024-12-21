@@ -21,13 +21,13 @@ main_menu(){
           echo "Failed to update profiles." ;
           echo "Press any key to continue" ;
           read -n 1
-        fi
-        ;;
+          ;;
       3)
         update_self || \
           echo "Self-update failed." ;
           echo "Press any key to continue" ;
           read -n 1
+          ;;
       0)
         reboot -f
         ;;
