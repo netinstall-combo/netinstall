@@ -1,11 +1,13 @@
 #!/bin/ash
-echo -ne "\0c"
+echo -ne "\033c"
 source /etc/profile
-mkdir -p /run/dbus/
-# run dbus
+# run eudev
 /sbin/udevd --daemon
 udevadm trigger -c add
 udevadm settle
+# run dbus
+mkdir -p /run/dbus/
+dbus-daemon --system &
 # run Network Manager
 NetworkManager
 exec /bin/sh
