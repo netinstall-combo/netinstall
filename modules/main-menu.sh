@@ -7,6 +7,7 @@ main_menu(){
         2 "Network Manager" \
         3 "Update Profiles" \
         4 "Self Update" \
+        5 "Disk Menu" \
         0 "Reboot")
     echo -ne "\033c"
     case $res in
@@ -18,15 +19,16 @@ main_menu(){
         ;;
       3)
         update_profile
-        echo "Press any key to continue"
-        read -n 1
         ;;
       4)
         update_self
-        echo "Press any key to continue"
         ;;
+      5)
+        disk_menu
       0)
         reboot -f
         ;;
     esac
+    echo "Press any key to continue"
+    read -n 1
 }
