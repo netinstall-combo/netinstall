@@ -18,6 +18,5 @@ for file in /$basedir/modules/*.sh ; do
     source $file
 done
 while true ; do
-    main_menu || true
-    sleep 3
+    main_menu || sleep 3
 done
