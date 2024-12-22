@@ -1,5 +1,11 @@
 set -e
 main_menu(){
+    if [ -d /netinstall/profiles ] ; then
+        menu=(
+          d "Disk Menu"
+          i "Install Menu"
+        )
+    fi
     res=$(dialog --no-cancel \
         --title "Main Menu" \
         --output-fd 1 \
@@ -7,8 +13,7 @@ main_menu(){
         s "Open Shell" \
         n "Network Manager" \
         u "Self Update" \
-        d "Disk Menu" \
-        i "Install Menu" \
+        "${menu[@]}" \
         0 "Exit")
     echo -ne "\033c"
     case $res in
