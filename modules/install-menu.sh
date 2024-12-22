@@ -1,26 +1,26 @@
 set -e
 install_menu(){
     while true ; do
-        res=$(dialog --title "Install Menu" \
+        res=$(dialog --no-cancel --title "Install Menu" \
             --output-fd 1 \
             --menu "$(get_install_info)" 15 50 4 \
-            1 "Select Partition" \
-            2 "Select Profile" \
-            3 "Select Options" \
-            4 "Select Username and Password" \
+            p "Select Partition" \
+            d "Select Distribution" \
+            o "Select Options" \
+            u "Select Username and Password" \
             0 "Back")
         echo -ne "\033c"
         case $res in
-          1)
+          p)
             partition_menu
             ;;
-          2)
+          d)
             select_distro
             ;;
-          3)
+          o)
             select_profile
             ;;
-          4)
+          u)
             select_username
             ;;
           0)
@@ -31,10 +31,10 @@ install_menu(){
 }
 
 select_username(){
-    dialog --title "Install Menu" \
+    dialog --no-cancel --title "Install Menu" \
             --output-fd 1 \
             --inputbox "Provide an username" 0 0 "pingu" > /netinstall/data/username
-    dialog --title "Install Menu" \
+    dialog --no-cancel --title "Install Menu" \
             --output-fd 1 \
             --inputbox "Provide a password" 0 0 "" > /netinstall/data/password
 }

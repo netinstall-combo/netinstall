@@ -6,7 +6,8 @@ select_distro(){
         menu+=($(basename $profile) "$(ini_parse distro name < $profile)")
     done
     while true ; do
-        res=$(dialog --title "Profile Menu" \
+        res=$(dialog --no-cancel \
+            --title "Profile Menu" \
             --output-fd 1 \
             --menu "Choose a profile:" 15 50 4 \
             "${menu[@]}")
@@ -24,7 +25,7 @@ select_profile(){
          menu+=("$sec" "$(ini_parse $sec description  < /netinstall/data/profile)" "false")
     done
     res=$(dialog --title "Profile Menu" \
-        --output-fd 1 \
+        --no-cancel --output-fd 1 \
         --checklist "Choose variants:" 15 50 4 \
         "${menu[@]}")
     echo $res > /netinstall/data/options

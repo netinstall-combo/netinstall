@@ -2,24 +2,24 @@
 set -e
 disk_menu(){
     while true ; do
-        res=$(dialog --title "Disk Menu" \
+        res=$(dialog --no-cancel --title "Disk Menu" \
             --output-fd 1 \
             --menu "Choose an option:" 15 50 4 \
-            1 "Erase Disk" \
-            2 "Edit Partitions" \
-            3 "Format Partition" \
+            e "Erase Disk" \
+            p "Edit Partitions" \
+            f "Format Partition" \
             0 "Back")
         [ "$res" == 0 ] && break;
         case $res in
-          1)
+          e)
             erase_partition=/dev/$(TITLE="Select a disk for erase" select_disk)
             head -c 512 /dev/zero > ${erase_partition}
             ;;
-          2)
+          p)
             cfdisk /dev/$(TITLE="Select a disk for edit" select_disk)
             ;;
-          3)
-            partition=/dev/$(TITLE="Select a partition for mountpoint" select_partition)
+          f)
+            partition=/dev/$(TITLE="Select a partition for format" select_partition)
             format_menu $partition
             ;;
         esac
