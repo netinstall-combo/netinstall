@@ -56,6 +56,7 @@ get_install_info(){
     if [ -e /netinstall/data/profile ] ; then
         echo "Distro: $(ini_parse distro name < /netinstall/data/profile)"
         echo "Option: $(cat /netinstall/data/options)"
+        echo "Grub: $(cat /netinstall/data/grub)"
     fi
     if [ -f /netinstall/data/username ] ; then
         echo "Username: $(cat /netinstall/data/username)"

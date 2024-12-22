@@ -29,11 +29,12 @@ do_install(){
         do_call_function configure $opt
     done
     do_call_function update_initramfs
+    do_call_function create_user
     # install grub
     if [ -d /sys/firmware/efi ] ; then
         mount -t efivarfs efivarfs /target/sys/firmware/efi/efivars/
     fi
-    chroot /target grub-install $(cat /netinstall/data/grub)
+    chroot /target grub-install /dev/$(cat /netinstall/data/grub)
     chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     if [[ -d /sys/firmware/efi ]] ; then
         umount -lf /target/sys/firmware/efi/efivars/
