@@ -1,7 +1,8 @@
 set -e
 main_menu(){
+    menu=()
     if [ -d /netinstall/profiles ] ; then
-        menu=(
+        menu+=(
           d "Disk Menu"
           i "Install Menu"
         )
