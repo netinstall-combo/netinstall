@@ -40,3 +40,7 @@ mountpoint_menu(){
     fi
     echo $result
 }
+
+select_grub(){
+    TITLE="Select a disk for grub" select_disk > /netinstall/data/grub
+}

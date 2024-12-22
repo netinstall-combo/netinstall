@@ -12,6 +12,7 @@ install_menu(){
             p "Select Partition" \
             d "Select Distribution" \
             o "Select Options" \
+            g "Select Grub Disk" \
             u "Select Username and Password" \
             "${menu[@]}" \
             0 "Back")
@@ -25,6 +26,9 @@ install_menu(){
             ;;
           o)
             select_profile
+            ;;
+          g)
+            select_grub
             ;;
           u)
             select_username
