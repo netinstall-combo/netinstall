@@ -8,7 +8,8 @@ main_menu(){
         3 "Update Profiles" \
         4 "Self Update" \
         5 "Disk Menu" \
-        0 "Reboot")
+        i "Install Menu" \
+        0 "Exit")
     echo -ne "\033c"
     case $res in
       1)
@@ -26,8 +27,15 @@ main_menu(){
       5)
         disk_menu
         ;;
+      i)
+        install_menu
+        ;;
       0)
-        reboot -f
+        if [ $$ -eq 1 ] ; then
+            reboot -f
+        else
+            exit 0
+        fi
         ;;
     esac
     echo "Press any key to continue"
