@@ -2,7 +2,7 @@
 # main installation
 do_call_function(){
     base=$(ini_parse distro base < /netinstall/data/profile)
-    bash -ec "source /netinstall/profiles/base/$base.sh ; $@"
+    bash -ec "source /netinstall/profiles/base/$base.sh ; $*"
 }
 
 do_install(){
