@@ -22,5 +22,6 @@ do_install(){
     for opt in $(cat /netinstall/data/options) ; do
         do_call_function remove_package $(ini_parse $opt remove < /netinstall/data/profile)
         do_call_function install_package $(ini_parse $opt install < /netinstall/data/profile)
+        do_call_function configure $opt
     done
 }
