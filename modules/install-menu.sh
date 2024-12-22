@@ -13,7 +13,7 @@ install_menu(){
             d "Select Distribution" \
             o "Select Options" \
             u "Select Username and Password" \
-            ${menu[@]} \
+            "${menu[@]}" \
             0 "Back")
         echo -ne "\033c"
         case $res in
