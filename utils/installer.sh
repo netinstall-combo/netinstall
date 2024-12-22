@@ -6,6 +6,7 @@ do_call_function(){
 }
 
 do_install(){
+    set -e
     echo -ne "\033c"
     do_call_function tool_init
     # mount parts
@@ -13,7 +14,7 @@ do_install(){
         mount=${line% */}
         part=${line#* }
         mkdir /target/$mount -p
-        mount $part $mount
+        mount $part /target/$mount
     done
     # create rootfs
     do_call_function install_base_system
