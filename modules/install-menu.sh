@@ -1,6 +1,11 @@
 set -e
 install_menu(){
     while true ; do
+        menu=()
+        if [ -f /netinstall/data/profile ] && \
+           grep "^/ " /netinstall/data/parts >/dev/null ; then
+            menu=(i "Start Installlation")
+        fi
         res=$(dialog --no-cancel --title "Install Menu" \
             --output-fd 1 \
             --menu "$(get_install_info)" 15 50 4 \
@@ -8,6 +13,7 @@ install_menu(){
             d "Select Distribution" \
             o "Select Options" \
             u "Select Username and Password" \
+            ${menu[@]}
             0 "Back")
         echo -ne "\033c"
         case $res in
@@ -22,6 +28,9 @@ install_menu(){
             ;;
           u)
             select_username
+            ;;
+          i)
+            do_install
             ;;
           0)
             break
