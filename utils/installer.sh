@@ -11,7 +11,7 @@ do_install(){
     do_call_function tool_init
     # mount parts
     cat /netinstall/data/parts | sort | while read line ; do
-        mount=${line% */}
+        mount=${line% *}
         part=${line#* }
         mkdir /target/$mount -p
         mount $part /target/$mount
