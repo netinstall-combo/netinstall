@@ -4,13 +4,13 @@ partition_menu(){
             --output-fd 1 --menu \
             "Partition Menu" 0 0 0 \
             "1" "Add Partition" \
-            $(cat /tmp/installer-parts) \
+            $(cat /netinstall/data/parts) \
             "0" "Back")
         [ "$res" == "0" ] && break
         if [ "$res" == "1" ] ; then
             select_mountpoint
         else
-             sed -i "s|^$res .*||g" /tmp/installer-parts
+             sed -i "s|^$res .*||g" /netinstall/data/parts
         fi
     done
 }
@@ -18,8 +18,8 @@ partition_menu(){
 select_mountpoint(){
     partition=/dev/$(TITLE="Select a partition for mountpoint" select_partition)
     mountpoint=$(mountpoint_menu)
-    sed -i "^$partition/d" /tmp/installer-parts || true
-    echo -e "$partition $mountpoint" >> /tmp/installer-parts
+    sed -i "^$partition/d" /netinstall/data/parts || true
+    echo -e "$partition $mountpoint" >> /netinstall/data/parts
 }
 
 mountpoint_menu(){
