@@ -1,10 +1,12 @@
 #!/bin/bash
 # main installation
 do_call_function(){
-    bash -ec "source /netinstall/data/profile ; $@"
+    base=$(ini_parse distro base < /netinstall/data/profile)
+    bash -ec "source  /netinstall/profiles/base/$base.sh ; $@"
 }
 
 do_install(){
+    echo -ne "\033c"
     do_call_function tool_init
     # mount parts
     cat /netinstall/data/parts | sort | while read line ; do
