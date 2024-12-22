@@ -13,6 +13,7 @@ update_profile(){
 }
 
 update_self(){
+    apk upgrade
     wget -O /tmp/netinstall.zip https://github.com/netinstall-combo/netinstall/archive/refs/heads/master.zip
     cd /
     unzip /tmp/netinstall.zip
