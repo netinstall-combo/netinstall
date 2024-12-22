@@ -18,8 +18,8 @@ partition_menu(){
 select_mountpoint(){
     partition=/dev/$(TITLE="Select a partition for mountpoint" select_partition)
     mountpoint=$(mountpoint_menu)
-    sed -i "^$partition/d" /netinstall/data/parts || true
-    echo -e "$partition $mountpoint" >> /netinstall/data/parts
+    sed -i "^$mountpoint/d" /netinstall/data/parts || true
+    echo -e "$mountpoint $partition" >> /netinstall/data/parts
 }
 
 mountpoint_menu(){
