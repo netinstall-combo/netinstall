@@ -6,7 +6,8 @@ install_menu(){
             --menu "$(get_install_info)" 15 50 4 \
             1 "Select Partition" \
             2 "Select Profile" \
-            3 "Select Username and Password" \
+            3 "Select Options" \
+            4 "Select Username and Password" \
             0 "Back")
         echo -ne "\033c"
         case $res in
@@ -14,9 +15,12 @@ install_menu(){
             partition_menu
             ;;
           2)
-            select_profile
+            select_distro
             ;;
           3)
+            select_profile
+            ;;
+          4)
             select_username
             ;;
           0)
@@ -37,8 +41,7 @@ select_username(){
 
 get_install_info(){
     if [ -e /netinstall/data/profile ] ; then
-        distro=$(basename $(readlink /netinstall/data/profile))
-        echo "Distro: $distro"
+        echo "Distro: $(ini_parse distro name < /netinstall/data/profile)"
         echo "Option: $(cat /netinstall/data/options)"
     fi
     if [ -f /netinstall/data/username ] ; then

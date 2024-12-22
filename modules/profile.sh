@@ -1,6 +1,7 @@
 #!/bin/bash
 select_distro(){
     menu=()
+    rm -f /netinstall/data/options || true
     for profile in /netinstall/profiles/*.ini ; do
         menu+=($(basename $profile) "$(ini_parse distro name < $profile)")
     done
@@ -19,9 +20,6 @@ select_distro(){
 
 select_profile(){
     menu=()
-    if [ ! -e /netinstall/data/profile ] ; then
-        select_distro
-    fi
     for sec in $(ini_list_sections < /netinstall/data/profile | grep -v distro) ; do
          menu+=("$sec" "$(ini_parse $sec description  < /netinstall/data/profile)" "false")
     done
