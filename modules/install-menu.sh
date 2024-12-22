@@ -3,6 +3,8 @@ install_menu(){
     while true ; do
         menu=()
         if [ -f /netinstall/data/profile ] && \
+           [ -f /netinstall/data/username ] && \
+           [ -f /netinstall/data/grub ] && \
            grep "^/ " /netinstall/data/parts >/dev/null ; then
             menu=(i "Start Installlation")
         fi
