@@ -4,7 +4,7 @@ disk_menu(){
     while true ; do
         res=$(dialog --no-cancel --title "Disk Menu" \
             --output-fd 1 \
-            --menu "Choose an option:" 15 50 4 \
+            --menu "Choose an option:" 0 0 0 \
             e "Erase Disk" \
             p "Edit Partitions" \
             f "Format Partition" \

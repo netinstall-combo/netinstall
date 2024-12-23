@@ -9,7 +9,7 @@ select_distro(){
         res=$(dialog --no-cancel \
             --title "Profile Menu" \
             --output-fd 1 \
-            --menu "Choose a profile:" 15 50 4 \
+            --menu "Choose a profile:" 0 0 0 \
             "${menu[@]}")
         if [ -f /netinstall/profiles/$res ] ; then
             rm -f /netinstall/data/profile

@@ -10,7 +10,7 @@ install_menu(){
         fi
         res=$(dialog --no-cancel --title "Install Menu" \
             --output-fd 1 \
-            --menu "$(get_install_info)" 15 50 4 \
+            --menu "$(get_install_info)" 0 0 0 \
             p "Select Partition" \
             d "Select Distribution" \
             o "Select Options" \

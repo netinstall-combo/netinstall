@@ -10,7 +10,7 @@ main_menu(){
     res=$(dialog --no-cancel \
         --title "Main Menu" \
         --output-fd 1 \
-        --menu "Choose an option:" 15 50 4 \
+        --menu "Choose an option:" 0 0 0 \
         s "Open Shell" \
         n "Network Manager" \
         u "Self Update" \
