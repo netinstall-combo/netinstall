@@ -36,7 +36,7 @@ do_install(){
     fi
     chroot /target grub-install /dev/$(cat /netinstall/data/grub)
     chroot /target grub-mkconfig -o /boot/grub/grub.cfg
-    get_fstab > /target/etc/fstab
+    gen_fstab > /target/etc/fstab
     echo "tmpfs /tmp tmpfs defaults,rw 0 0" >> /target/etc/fstab
     if [[ -d /sys/firmware/efi ]] ; then
         umount -lf /target/sys/firmware/efi/efivars/
