@@ -26,7 +26,7 @@ select_profile(){
     done
     res=$(dialog --title "Profile Menu" \
         --no-cancel --output-fd 1 \
-        --checklist "Choose variants:" 15 50 4 \
+        --checklist "Choose variants:" 0 0 0 \
         "${menu[@]}")
     echo $res > /netinstall/data/options
 }
