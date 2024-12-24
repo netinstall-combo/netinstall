@@ -1,5 +1,6 @@
 set -e
 main_menu(){
+    echo -ne "\033c"
     menu=()
     if [ -d /netinstall/profiles ] ; then
         menu+=(
@@ -16,7 +17,6 @@ main_menu(){
         u "Self Update" \
         "${menu[@]}" \
         0 "Exit")
-    echo -ne "\033c"
     case $res in
       s)
         /bin/bash
