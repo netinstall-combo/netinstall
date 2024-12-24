@@ -6,6 +6,12 @@ source /etc/profile
 /sbin/udevd --daemon
 udevadm trigger -c add
 udevadm settle
+# devpts
+mkdir -p /dev/pts /sys /proc
+mount -t devtmpfs devtmpfs  /dev
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devpts devpts /dev/pts
 # run dbus
 mkdir -p /run/dbus/
 dbus-daemon --system &
