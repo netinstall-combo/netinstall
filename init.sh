@@ -12,6 +12,7 @@ mount -t devpts devpts /dev/pts
 /sbin/udevd --daemon
 udevadm trigger -c add
 udevadm settle
+modprobe ext4
 # run dbus
 mkdir -p /run/dbus/
 dbus-daemon --system &
