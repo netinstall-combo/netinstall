@@ -2,16 +2,16 @@
 echo -ne "\033c"
 # silent
 source /etc/profile
-# run eudev
-/sbin/udevd --daemon
-udevadm trigger -c add
-udevadm settle
 # devpts
 mkdir -p /dev/pts /sys /proc
 mount -t devtmpfs devtmpfs  /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 mount -t devpts devpts /dev/pts
+# run eudev
+/sbin/udevd --daemon
+udevadm trigger -c add
+udevadm settle
 # run dbus
 mkdir -p /run/dbus/
 dbus-daemon --system &
