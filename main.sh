@@ -10,6 +10,7 @@ echo "Welcome to Netinstall-Combo"
 if [ "$basedir" == "" ] ; then
     basedir="/netinstall"
 fi
+modprobe ext4
 source $basedir/import.sh
 mkdir -p /netinstall/data
 while true ; do

@@ -13,16 +13,12 @@ main_menu(){
         --output-fd 1 \
         --menu "Choose an option:" 0 0 0 \
         s "Open Shell" \
-        n "Network Manager" \
         u "Self Update" \
         "${menu[@]}" \
         0 "Exit")
     case $res in
       s)
         /bin/bash
-        ;;
-      n)
-        nmtui
         ;;
       u)
         update_self

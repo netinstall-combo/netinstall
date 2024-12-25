@@ -12,12 +12,11 @@ mount -t devpts devpts /dev/pts
 /sbin/udevd --daemon
 udevadm trigger -c add
 udevadm settle
-modprobe ext4
-# run dbus
-mkdir -p /run/dbus/
-dbus-daemon --system &
-# run Network Manager
-NetworkManager
+# run busybox udhcpc
+for DEVICE in /sys/class/net/* ; do
+    ip link set ${DEVICE##*/} up
+    [ ${DEVICE##*/} != lo ] && udhcpc -b -i ${DEVICE##*/}
+done
 # run dropbear
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
