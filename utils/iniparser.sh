@@ -6,6 +6,9 @@ ini_parse(){
     while read line ; do
         case $line in
           [*)
+            if [ "$found" == "true" ] ; then
+                return
+            fi
             if [ "$line" == "[$section]" ] ; then
                 found="true"
             fi
