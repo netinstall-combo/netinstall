@@ -3,11 +3,10 @@ echo -ne "\033c"
 # silent
 source /etc/profile
 # devpts
-mkdir -p /dev/pts /sys /proc
+mkdir -p /dev /sys /proc
 mount -t devtmpfs devtmpfs  /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
-mount -t devpts devpts /dev/pts
 # run eudev
 /sbin/udevd --daemon
 udevadm trigger -c add
