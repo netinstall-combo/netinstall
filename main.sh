@@ -3,6 +3,8 @@ set -e
 trap '' SIGINT
 set -o ignoreeof
 ###### netinstall combo ######
+export SHELL=/bin/bash
+export TERM=linux
 # clear screen
 echo -ne "\033c"
 # create shell
