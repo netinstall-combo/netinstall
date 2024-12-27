@@ -18,8 +18,10 @@ do_install(){
     cat /netinstall/data/parts | sort | while read line ; do
         mount=${line% *}
         part=${line#* }
-        mkdir /target/$mount -p
-        mount $part /target/$mount || fail
+        if [[ -b "$part" ]] ; then
+            mkdir /target/$mount -p
+            mount $part /target/$mount || fail
+        fi
     done
     # create rootfs
     do_call_function install_base_system
