@@ -13,7 +13,7 @@ if [ "$basedir" == "" ] ; then
     basedir="/netinstall"
 fi
 for mod in $(ls /lib/modules/$(uname -r)/kernel/fs/) ; do
-    modprobe $mod &
+    modprobe $mod 2>/dev/null &
 done
 source $basedir/import.sh
 mkdir -p /netinstall/data
