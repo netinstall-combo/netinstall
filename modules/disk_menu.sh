@@ -13,14 +13,21 @@ disk_menu(){
         case $res in
           e)
             erase_partition=/dev/$(TITLE="Select a disk for erase" select_disk)
-            head -c 512 /dev/zero > ${erase_partition}
+            if [[ -b ${erase_partition} ]] ; then
+                head -c 512 /dev/zero > ${erase_partition}
+            fi
             ;;
           p)
-            cfdisk /dev/$(TITLE="Select a disk for edit" select_disk)
+            edit_partition=/dev/$(TITLE="Select a disk for edit" select_disk)
+            if [[ -b ${edit_partition} ]] ; then
+                cfdisk ${edit_partition}
+            fi
             ;;
           f)
             partition=/dev/$(TITLE="Select a partition for format" select_partition)
-            format_menu $partition
+            if [[ -b ${partition} ]] ; then
+                format_menu ${partition}
+            fi
             ;;
         esac
     done
@@ -47,12 +54,10 @@ select_disk(){
         name=$(cat /sys/block/$disk/device/model)
         menu+=("$disk" " $name ($size)")
     done >/dev/null
-    while [[ ! -b "/dev/$result" ]] ; do
-        result=$(dialog --no-cancel \
-            --output-fd 1 --menu \
-            "$TITLE" 0 0 0 \
-            "${menu[@]}")
-    done
+    result=$(dialog \
+        --output-fd 1 --menu \
+        "$TITLE" 0 0 0 \
+        "${menu[@]}")
     echo $result
 }
 
@@ -78,12 +83,10 @@ select_partition(){
         done
     done >/dev/null
     info_label="Partition | Filesystem | Label | Size"
-    while [[ ! -b "/dev/$result" ]] ; do
-        result=$(dialog --no-cancel \
-            --output-fd 1 --menu \
-            "$TITLE\n\n${info_label}" 0 0 0 \
-            "${menu[@]}")
-    done
+    result=$(dialog \
+        --output-fd 1 --menu \
+        "$TITLE\n\n${info_label}" 0 0 0 \
+        "${menu[@]}")
     echo $result
 }
 
