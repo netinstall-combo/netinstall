@@ -12,7 +12,9 @@ echo "Welcome to Netinstall-Combo"
 if [ "$basedir" == "" ] ; then
     basedir="/netinstall"
 fi
-modprobe ext4
+for mod in $(ls /lib/modules/$(uname -r)/kernel/fs/) ; do
+    modprobe $mod &
+done
 source $basedir/import.sh
 mkdir -p /netinstall/data
 while true ; do
