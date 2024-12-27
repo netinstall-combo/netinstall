@@ -5,6 +5,11 @@ do_call_function(){
     bash -ec "source /netinstall/profiles/base/$base.sh ; $*"
 }
 
+fail(){
+    echo "Installation Failed!"
+    exec sleep inf
+}
+
 do_install(){
     set -e
     echo -ne "\033c"
@@ -14,7 +19,7 @@ do_install(){
         mount=${line% *}
         part=${line#* }
         mkdir /target/$mount -p
-        mount $part /target/$mount
+        mount $part /target/$mount || fail
     done
     # create rootfs
     do_call_function install_base_system
