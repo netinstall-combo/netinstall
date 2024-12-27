@@ -34,6 +34,12 @@ select_disk(){
         if echo $disk | grep "^loop" >/dev/null ; then
             continue
         fi
+        if echo $disk | grep "^fd" >/dev/null ; then
+            continue
+        fi
+        if echo $disk | grep "^sr" >/dev/null ; then
+            continue
+        fi
         if [[ "$(cat /sys/block/$disk/size)" -eq 0 ]] ; then
             continue
         fi
