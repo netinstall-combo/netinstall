@@ -15,6 +15,22 @@ fi
 find /lib/modules/$(uname -r)/kernel/fs -type f -exec insmod {} \; 2>/dev/null
 source $basedir/import.sh
 mkdir -p /netinstall/data
+if grep init= /proc/cmdline >/dev/null; then
+    echo -ne "\033c"
+
+    init="$(cat /proc/cmdline | tr ' ' ' \n' | grep 'init=')"
+    init=${init/*=/}
+    if echo "$init" | grep "://" >/dev/null; then
+        wget "$init" | bash -e
+    elif [ -f "$init" ] ; then
+       bash -e "$init"
+    else
+        echo "init not found"
+        echo "$init"
+        echo "press any key to continue"
+        read -n 1
+    fi
+fi
 while true ; do
     main_menu || sleep 3
 done
