@@ -21,7 +21,7 @@ if grep init= /proc/cmdline >/dev/null; then
     init="$(cat /proc/cmdline | tr ' ' ' \n' | grep 'init=')"
     init=${init/*=/}
     if echo "$init" | grep "://" >/dev/null; then
-        wget "$init" | bash -e
+        wget "$init" -O - | bash -e
     elif [ -f "$init" ] ; then
        bash -e "$init"
     else
