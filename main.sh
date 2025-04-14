@@ -18,7 +18,7 @@ mkdir -p /netinstall/data
 if grep init= /proc/cmdline >/dev/null; then
     echo -ne "\033c"
 
-    init="$(cat /proc/cmdline | tr ' ' ' \n' | grep 'init=')"
+    init="$(cat /proc/cmdline | tr ' ' '\n' | grep 'init=')"
     init=${init/*=/}
     if echo "$init" | grep "://" >/dev/null; then
         wget "$init" -O - | bash -e
@@ -27,9 +27,9 @@ if grep init= /proc/cmdline >/dev/null; then
     else
         echo "init not found"
         echo "$init"
-        echo "press any key to continue"
-        read -n 1
     fi
+    echo "press any key to continue"
+    read -n 1
 fi
 while true ; do
     main_menu || sleep 3
