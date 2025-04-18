@@ -7,6 +7,10 @@ mkdir -p /dev /sys /proc
 mount -t devtmpfs devtmpfs  /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
+# load filesystem modules
+for fs in ext4 ext2 vfat xfs btrfs ; do
+    modprobe $fs || true
+done
 # run eudev
 /sbin/udevd --daemon
 udevadm trigger -c add
