@@ -14,7 +14,7 @@ update_profile(){
 
 update_self(){
     apk upgrade
-    apk add parted lsblk e2fsprogs cfdisk
+    apk add parted lsblk e2fsprogs cfdisk btrfs-progs
     wget -O /tmp/netinstall.zip https://github.com/netinstall-combo/netinstall/archive/refs/heads/master.zip
     cd /
     unzip /tmp/netinstall.zip

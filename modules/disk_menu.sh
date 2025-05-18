@@ -96,6 +96,7 @@ format_menu(){
         "Select filesystem format for $partition" 0 0 0 \
         "ext2" "filesystem for legacy linux rootfs" \
         "ext4" "filesystem for linux rootfs partition or storage" \
+        "btrfs" "a modern filesystem for linux rootfs partition" \
         "fat32" "filesystem for removable devices of efi partition")
     echo -ne "\033c"
     if [[ ${format_type} == "ext2" ]] ; then
@@ -104,5 +105,7 @@ format_menu(){
         yes | mkfs.ext4 -O ^has_journal -O ^metadata_csum "$1"
     elif [[ ${format_type} == "fat32" ]] ; then
         yes | mkfs.vfat "$1"
+    elif [[ ${format_type} == "btrfs" ]] ; then
+        yes | mkfs.btrfs -f $partition
     fi
 }

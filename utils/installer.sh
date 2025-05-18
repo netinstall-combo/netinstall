@@ -38,13 +38,17 @@ do_install(){
     done
     do_call_function update_initramfs
     do_call_function create_user
+    # fstab
+    gen_fstab > /target/etc/fstab
+    sed -i ".*GRUB_CMDLINE_LINUX_DEFAULT=.*/d" /target/etc/default/grub
+    rootfstype=$(cat /target/etc/fstab | grep " / " | cut -f3 -d" ")
+    sed -i "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet rootfstype=$rootfstype\"" >> /target/etc/default/grub
     # install grub
     if [ -d /sys/firmware/efi ] ; then
         mount -t efivarfs efivarfs /target/sys/firmware/efi/efivars/
     fi
     chroot /target grub-install /dev/$(cat /netinstall/data/grub)
     chroot /target grub-mkconfig -o /boot/grub/grub.cfg
-    gen_fstab > /target/etc/fstab
     echo "tmpfs /tmp tmpfs defaults,rw 0 0" >> /target/etc/fstab
     if [[ -d /sys/firmware/efi ]] ; then
         umount -lf /target/sys/firmware/efi/efivars/
