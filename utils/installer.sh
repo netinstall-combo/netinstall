@@ -38,6 +38,13 @@ do_install(){
     done
     do_call_function update_initramfs
     do_call_function create_user
+    # basic settings
+    echo localhost > /target/etc/hostname
+    echo "127.0.0.1 localhost" > /target/etc/hosts
+    # add turkman linux hardening settings
+    wget https://gitlab.com/turkman/devel/sources/base-files/-/raw/master/rootfs/etc/sysctl.d/990-security.conf -O /target/etc/sysctl.d/990-security.conf
+    # generic machine-id
+    echo "b08dfa6083e7567a1921a715000001fb" > /target/etc/machine-id
     # fstab
     gen_fstab > /target/etc/fstab
     sed -i ".*GRUB_CMDLINE_LINUX_DEFAULT=.*/d" /target/etc/default/grub
