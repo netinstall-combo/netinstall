@@ -42,12 +42,22 @@ do_install(){
     gen_fstab > /target/etc/fstab
     sed -i ".*GRUB_CMDLINE_LINUX_DEFAULT=.*/d" /target/etc/default/grub
     rootfstype=$(cat /target/etc/fstab | grep " / " | cut -f3 -d" ")
-    sed -i "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet rootfstype=$rootfstype\"" >> /target/etc/default/grub
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet rootfstype=$rootfstype\"" >> /target/etc/default/grub
     # install grub
     if [ -d /sys/firmware/efi ] ; then
         mount -t efivarfs efivarfs /target/sys/firmware/efi/efivars/
+        chroot /target grub-install --target=i386-pc --force --removable /dev/$(cat /netinstall/data/grub)
+    else
+        chroot /target grub-install --bootloader-id=grub --target=x86_64-efi --force --removable /dev/$(cat /netinstall/data/grub)
     fi
-    chroot /target grub-install /dev/$(cat /netinstall/data/grub)
+    # move winzort efi if exists and copy grub
+    if [[ -d /sys/firmware/efi ]] ; then
+        if [ -d /target/boot/efi/EFI/Microsoft/ ] ; then
+            mv /target/boot/efi/EFI/Microsoft/ /target/boot/efi/EFI/Microshit
+        fi
+        mkdir -p /target/boot/efi/EFI/Microsoft/Boot/ || true
+        cp -f /target/boot/efi/EFI/grub/grubx64.efi /target/boot/efi/EFI/Microsoft/Boot/bootmgfw.efi || true
+    fi
     chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     echo "tmpfs /tmp tmpfs defaults,rw 0 0" >> /target/etc/fstab
     if [[ -d /sys/firmware/efi ]] ; then
