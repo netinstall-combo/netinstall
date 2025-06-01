@@ -46,9 +46,9 @@ do_install(){
     # install grub
     if [ -d /sys/firmware/efi ] ; then
         mount -t efivarfs efivarfs /target/sys/firmware/efi/efivars/
-        chroot /target grub-install --target=i386-pc --force --removable /dev/$(cat /netinstall/data/grub)
-    else
         chroot /target grub-install --bootloader-id=grub --target=x86_64-efi --force --removable /dev/$(cat /netinstall/data/grub)
+    else
+        chroot /target grub-install --target=i386-pc --force --removable /dev/$(cat /netinstall/data/grub)
     fi
     # move winzort efi if exists and copy grub
     if [[ -d /sys/firmware/efi ]] ; then
