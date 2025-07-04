@@ -7,6 +7,7 @@ mkdir -p /dev /sys /proc
 mount -t devtmpfs devtmpfs  /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
+depmod -a
 # load filesystem modules
 for fs in ext4 ext2 vfat xfs btrfs ; do
     modprobe $fs || true
@@ -23,5 +24,5 @@ done
 # run dropbear
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
-dropbear -R -E 2>/dev/null | :
+#dropbear -R -E 2>/dev/null | :
 exec agetty -L 115200 -a root console
