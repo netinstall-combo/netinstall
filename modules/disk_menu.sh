@@ -4,7 +4,7 @@ disk_menu(){
     while true ; do
         res=$(dialog --no-cancel --title "Disk Menu" \
             --output-fd 1 \
-            --menu "Choose an option:" 0 0 0 \
+            --menu "Choose an option:" -1 0 0 \
             e "Erase Disk" \
             p "Edit Partitions" \
             f "Format Partition" \
@@ -93,7 +93,7 @@ select_partition(){
 format_menu(){
     format_type=$(dialog --no-cancel \
         --output-fd 1 --menu \
-        "Select filesystem format for $partition" 0 0 0 \
+        "Select filesystem format for $partition" -1 0 0 \
         "ext2" "filesystem for legacy linux rootfs" \
         "ext4" "filesystem for linux rootfs partition or storage" \
         "btrfs" "a modern filesystem for linux rootfs partition" \
@@ -102,7 +102,7 @@ format_menu(){
     if [[ ${format_type} == "ext2" ]] ; then
         yes | mkfs.ext2 "$1"
     elif [[ ${format_type} == "ext4" ]] ; then
-        yes | mkfs.ext4 -O ^has_journal -O ^metadata_csum "$1"
+        yes | mkfs.ext4 -O ^has_journal "$1"
     elif [[ ${format_type} == "fat32" ]] ; then
         yes | mkfs.vfat "$1"
     elif [[ ${format_type} == "btrfs" ]] ; then
