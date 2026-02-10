@@ -12,7 +12,7 @@ select_distro(){
             --menu "Choose a profile:" 0 0 0 \
             "${menu[@]}")
         if [ -f /netinstall/profiles/$res ] ; then
-            rm -f /netinstall/data/profile
+            rm -f /netinstall/data/profile || true
             ln -s ../profiles/$res /netinstall/data/profile
             break
         fi
