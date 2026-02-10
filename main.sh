@@ -12,7 +12,6 @@ echo "Welcome to Netinstall-Combo"
 if [ "$basedir" == "" ] ; then
     basedir="/netinstall"
 fi
-find /lib/modules/$(uname -r)/kernel/fs -type f -exec insmod {} \; &>/dev/null
 source $basedir/import.sh
 mkdir -p /netinstall/data
 if grep init= /proc/cmdline >/dev/null; then

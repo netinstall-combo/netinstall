@@ -8,6 +8,9 @@ mount -t devtmpfs devtmpfs  /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 depmod -a
+if [ -d /lib/modules/$(uname -r) ] ; then
+    find /lib/modules/$(uname -r)/kernel/fs -type f -exec insmod {} \; &>/dev/null
+fi
 # load filesystem modules
 for fs in ext4 ext2 vfat xfs btrfs ; do
     modprobe $fs || true
