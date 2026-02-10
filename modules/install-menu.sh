@@ -36,7 +36,7 @@ install_menu(){
             select_username
             ;;
           i)
-            do_install
+            do_install |& tee /netinstall/installer.log
             ;;
           0)
             break
