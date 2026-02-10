@@ -11,7 +11,7 @@ main_menu(){
     res=$(dialog --no-cancel \
         --title "Main Menu" \
         --output-fd 1 \
-        --menu "Choose an option:" 0 0 0 \
+        --menu "Choose an option:" -1 0 0 \
         s "Open Shell" \
         u "Self Update" \
         "${menu[@]}" \
