@@ -9,7 +9,7 @@ select_distro(){
         res=$(dialog --no-cancel \
             --title "Profile Menu" \
             --output-fd 1 \
-            --menu "Choose a profile:" 0 0 0 \
+            --menu "Choose a profile:" -1 0 0 \
             "${menu[@]}")
         if [ -f /netinstall/profiles/$res ] ; then
             rm -f /netinstall/data/profile || true
@@ -26,7 +26,7 @@ select_profile(){
     done
     res=$(dialog --title "Profile Menu" \
         --no-cancel --output-fd 1 \
-        --checklist "Choose variants:" 0 0 0 \
+        --checklist "Choose variants:" -1 0 0 \
         "${menu[@]}")
     echo $res > /netinstall/data/options
 }
