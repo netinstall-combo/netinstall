@@ -56,7 +56,7 @@ select_disk(){
     done >/dev/null
     result=$(dialog \
         --output-fd 1 --menu \
-        "$TITLE" 0 0 0 \
+        "$TITLE" -1 0 0 \
         "${menu[@]}")
     echo $result
 }
@@ -85,7 +85,7 @@ select_partition(){
     info_label="Partition | Filesystem | Label | Size"
     result=$(dialog \
         --output-fd 1 --menu \
-        "$TITLE\n\n${info_label}" 0 0 0 \
+        "$TITLE\n\n${info_label}" -1 0 0 \
         "${menu[@]}")
     echo $result
 }
