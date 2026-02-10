@@ -78,13 +78,5 @@ do_install(){
     sync
     umount -lf /target
     dialog --output-fd 1 --msgbox "Installation finished." 0 0
-    i=5
-    while [ $i -gt 0 ] ; do
-        clear
-        echo "System will reboot in $i sec"
-        sleep 1
-        i=$(($i-1))
-    done
 
-    reboot -f
 }
