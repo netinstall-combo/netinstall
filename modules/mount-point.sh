@@ -2,7 +2,7 @@ partition_menu(){
     while true ; do
         res=$(dialog --no-cancel \
             --output-fd 1 --menu \
-            "Partition Menu" 0 0 0 \
+            "Partition Menu" -1 0 0 \
             "+" "Add Partition" \
             $(cat /netinstall/data/parts) \
             "0" "Back")
@@ -28,7 +28,7 @@ mountpoint_menu(){
     fi
     result=$(dialog --no-cancel \
                 --output-fd 1 --menu \
-                "Select a mountpoint" 0 0 0 \
+                "Select a mountpoint" -1 0 0 \
                 "/" "Root filesystem" \
                 "${efi_mounts[@]}" \
                 "custom" "Custom directory")
