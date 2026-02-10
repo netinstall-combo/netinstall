@@ -24,7 +24,7 @@ do_install(){
         fi
     done
     # create rootfs
-    do_call_function install_base_system
+    do_call_function install_base_system || fail
     # bind mount
     for dir in dev sys proc run ; do
         mount --bind /$dir /target/$dir
@@ -47,7 +47,7 @@ do_install(){
     echo "b08dfa6083e7567a1921a715000001fb" > /target/etc/machine-id
     # fstab
     gen_fstab > /target/etc/fstab
-    sed -i ".*GRUB_CMDLINE_LINUX_DEFAULT=.*/d" /target/etc/default/grub
+    sed -i "/.*GRUB_CMDLINE_LINUX_DEFAULT=/d" /target/etc/default/grub
     rootfstype=$(cat /target/etc/fstab | grep " / " | cut -f3 -d" ")
     echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet rootfstype=$rootfstype\"" >> /target/etc/default/grub
     # install grub
@@ -58,7 +58,7 @@ do_install(){
         chroot /target grub-install --target=i386-pc --force --removable /dev/$(cat /netinstall/data/grub)
     fi
     # move winzort efi if exists and copy grub
-    if [[ -d /sys/firmware/efi ]] ; then
+    if [ -d /sys/firmware/efi ] ; then
         if [ -d /target/boot/efi/EFI/Microsoft/ ] ; then
             mv /target/boot/efi/EFI/Microsoft/ /target/boot/efi/EFI/Microshit
         fi
@@ -67,9 +67,12 @@ do_install(){
     fi
     chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     echo "tmpfs /tmp tmpfs defaults,rw 0 0" >> /target/etc/fstab
-    if [[ -d /sys/firmware/efi ]] ; then
+    if [ -d /sys/firmware/efi ] ; then
         umount -lf /target/sys/firmware/efi/efivars/
     fi
+
+    # copy log
+    cat /netinstall/installer.log > /target/var/log/installer.log
 
     # bind umount
     for dir in dev sys proc run ; do
