@@ -1,4 +1,15 @@
 set -e
+
+do_reboot(){
+    i=5
+    while [ $i -gt 0 ] ; do
+        clear
+        echo "System will reboot in $i sec"
+        sleep 1
+        i=$(($i-1))
+    done
+    reboot -f
+}
 main_menu(){
     echo -ne "\033c"
     menu=()
@@ -30,11 +41,7 @@ main_menu(){
         install_menu
         ;;
       0)
-        if [ $$ -eq 1 ] ; then
-            reboot -f
-        else
-            exit 0
-        fi
+        do_reboot
         ;;
     esac
     echo "Press any key to continue"
